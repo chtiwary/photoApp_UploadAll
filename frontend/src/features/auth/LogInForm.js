@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn, selectError, clearError } from './authSlice';
+import { TextField, Button, Container, Typography, Box, Alert } from '@mui/material';
 
 function LogInForm() {
   const dispatch = useDispatch();
@@ -22,36 +23,46 @@ function LogInForm() {
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="border border-gray-400 p-2 mb-2 w-full"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="border border-gray-400 p-2 mb-2 w-full"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
+    <Container maxWidth="sm">
+      <Box mt={5}>
+        <Typography variant="h4" component="h2" gutterBottom>
           Log In
-        </button>
-      </form>
-    </div>
+        </Typography>
+        {error && <Alert severity="error">{error}</Alert>}
+        <form onSubmit={handleSubmit}>
+          <TextField
+            type="email"
+            name="email"
+            label="Email"
+            value={formData.email}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            type="password"
+            name="password"
+            label="Password"
+            value={formData.password}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <Box mt={2}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
+              Log In
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Container>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPhotos, selectAllPhotos, deletePhotoById } from '../photos/photosSlice';
+import { CircularProgress, Typography, Grid, Card, CardMedia, CardActions, Button, Container, Box, Alert } from '@mui/material';
 
 const PhotoGallery = () => {
   const dispatch = useDispatch();
@@ -17,24 +18,54 @@ const PhotoGallery = () => {
   let content;
 
   if (photoStatus === 'loading') {
-    content = <p>Loading...</p>;
+    content = (
+      <Box display="flex" justifyContent="center" mt={5}>
+        <CircularProgress />
+      </Box>
+    );
   } else if (photoStatus === 'succeeded') {
-    console.log(photos)
-    content = photos.map((photo) => (
-      <div key={photo._id}>
-        <img src={`http://localhost:5000/uploads/${photo.filename}`} alt={photo.title} />
-        <button onClick={() => dispatch(deletePhotoById(photo._id))}>Delete</button>
-      </div>
-    ));
+    content = (
+      <Grid container spacing={3}>
+        {photos.map((photo) => (
+          <Grid item key={photo._id} xs={12} sm={6} md={4}>
+            <Card>
+              <CardMedia
+                component="img"
+                height="200"
+                image={`http://localhost:5000/uploads/${photo.filename}`}
+                alt={photo.title}
+              />
+              <CardActions>
+                <Button
+                  size="small"
+                  color="secondary"
+                  onClick={() => dispatch(deletePhotoById(photo._id))}
+                >
+                  Delete
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    );
   } else if (photoStatus === 'failed') {
-    content = <p>{error}</p>;
+    content = (
+      <Box mt={3}>
+        <Alert severity="error">{error}</Alert>
+      </Box>
+    );
   }
 
   return (
-    <section>
-      <h2>Photo Gallery</h2>
-      {content}
-    </section>
+    <Container>
+      <Box mt={3}>
+        <Typography variant="h4" component="h2" gutterBottom>
+          Photo Gallery
+        </Typography>
+        {content}
+      </Box>
+    </Container>
   );
 };
 

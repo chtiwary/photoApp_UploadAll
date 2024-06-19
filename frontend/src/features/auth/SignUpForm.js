@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp, selectError, clearError } from './authSlice';
+import { TextField, Button, Container, Typography, Box, Alert } from '@mui/material';
 
 function SignUpForm() {
   const dispatch = useDispatch();
@@ -23,45 +24,56 @@ function SignUpForm() {
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          className="border border-gray-400 p-2 mb-2 w-full"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="border border-gray-400 p-2 mb-2 w-full"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="border border-gray-400 p-2 mb-2 w-full"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
+    <Container maxWidth="sm">
+      <Box mt={5}>
+        <Typography variant="h4" component="h2" gutterBottom>
           Sign Up
-        </button>
-      </form>
-    </div>
+        </Typography>
+        {error && <Alert severity="error">{error}</Alert>}
+        <form onSubmit={handleSubmit}>
+          <TextField
+            type="text"
+            name="username"
+            label="Username"
+            value={formData.username}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            type="email"
+            name="email"
+            label="Email"
+            value={formData.email}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            type="password"
+            name="password"
+            label="Password"
+            value={formData.password}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <Box mt={2}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
+              Sign Up
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Container>
   );
 }
 
