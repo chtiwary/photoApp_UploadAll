@@ -84,13 +84,13 @@ Project Structure
 
 API Endpoints
 Authentication
-POST /api/auth/signup: Sign up a new user
-POST /api/auth/login: Log in an existing user
+POST (http://localhost:5000/api/auth/signup): Sign up a new user
+POST (http://localhost:5000/api/auth/login): Log in an existing user
 
 Photos
-POST /api/photos/upload: Upload a new photo
-GET /api/photos: Get all photos
-DELETE /api/photos/:_id: Delete a photo by ID
+POST (http://localhost:5000/api/photos/upload): Upload a new photo
+GET (http://localhost:5000/api/photos/): Get all photos
+DELETE (`http://localhost:5000/api/photos/${photoId}`): Delete a photo by ID
 
 ### Prerequisites
 
